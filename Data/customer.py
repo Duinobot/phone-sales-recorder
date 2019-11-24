@@ -6,8 +6,6 @@ import imei
 
 class Customer(Document):
     name = StringField(required = True)
-    company = StringField(required = True)
-    phone = StringField()
+    company = StringField(required = True,unique=True)
+    mobile = StringField()
     email = StringField()
-    imei = ListField(ReferenceField(Imei))
-    
