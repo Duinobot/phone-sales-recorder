@@ -1,10 +1,10 @@
 import datetime
 from mongoengine import *
+from data.customer import *
 
 class Imei(EmbeddedDocument):
     imei_no = StringField(required = True, unique=True,)
-    customer = ReferenceField(Customer)
-    phone = ReferenceField(Phone)
+    customer_id = ObjectIdField()
     Date_in = DateTimeField(default=datetime.datetime.now)
     Date_out = DateTimeField(default=datetime.datetime.now)
     

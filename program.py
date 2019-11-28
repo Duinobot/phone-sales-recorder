@@ -1,5 +1,5 @@
 from phone_inventory import *
-#from services.data_service import *
+from services.data_service import *
 import sys
 
 class InventoryApp(Ui_MainWindow):

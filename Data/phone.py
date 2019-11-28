@@ -1,6 +1,5 @@
 import datetime
 from mongoengine import *
-from customer import Customer
 
 class Phone(Document):
     imei = StringField(required = True)

@@ -19,7 +19,7 @@ def add_phone(imei, model, storage, color, grade):
     generate_full_name(phone)
     return phone.save()
 
-def generate_full_name(phone : Phone) -> Str:
+def generate_full_name(phone : Phone) -> str:
     phone.full_name = phone.model + " " + phone.storage + " [" + phone.grade + " Grade] [" + phone.color +"]"
     return phone.full_name
 
