@@ -8,7 +8,7 @@ import pymongo
 
 #0 find phone in database
 # take attribute as input and look for the device, if not exist use 
-# #2 add phone to database 
+# #2 add phone to database df
 def add_phone(imei, model, storage, color, grade):
     phone = Phone()
     phone.imei = imei
@@ -70,4 +70,4 @@ def display_inventory_summary():
         print ("{}: {}".format(phone,qty))
 
 def add_model(model):
-    
+    pass
