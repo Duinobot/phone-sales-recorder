@@ -43,9 +43,9 @@ class InventoryApp(Ui_MainWindow):
 			self.addPhone_displayIMEI_label.setText(imei)
 
 	def display_updated_phones_in_table():
-		
+		pass
 
-     
+	 
 
 	
 app = QtWidgets.QApplication(sys.argv)
