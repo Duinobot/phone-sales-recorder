@@ -1,6 +1,6 @@
 import datetime
 from mongoengine import *
-from data.customer import *
+from Data.customer import *
 
 class Imei(EmbeddedDocument):
     imei_no = StringField(required = True, unique=True,)
