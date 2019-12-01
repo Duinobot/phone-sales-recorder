@@ -9,7 +9,7 @@ class Phone(Document):
     storage = StringField(required = True)
     color = StringField(required = True)
     grade = StringField(required = True)
-    product_code = StringField()
+    product_id = StringField()
     
     date_in = DateTimeField(required=True, default = datetime.datetime.now())
     date_out = DateTimeField()

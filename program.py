@@ -24,26 +24,34 @@ class InventoryApp(Ui_MainWindow):
 		#self.addPhone_model_comboBox.
 		self.addPhone_addPhone_pushButton.clicked.connect(self.display_fullname_and__imei)
 		
-  
-	def display_fullname_and__imei(self):
+	def addPhone_AddButtonClicked(self):
 		model = self.addPhone_model_comboBox.currentText()
 		storage = self.addPhone_storage_comboBox.currentText()
 		color = self.addPhone_color_comboBox.currentText()
 		grade = self.addPhone_grade_comboBox.currentText()
-		full_name = model + " " + storage + "GB [" + grade + " Grade] [" + color +"]"
-		if (model == "" or storage == "" or grade == "" or color == ""):
-			self.addPhone_displayFullName_label.setText("Please select all attributes")
-		else:
-			self.addPhone_displayFullName_label.setText(full_name)
 		imei = self.addPhone_imei_lineEdit.text()
-		if imei == "":
-			self.addPhone_displayIMEI_label.setText("Please Enter IMEI")
+		product_id = self.addPhone_productID_lineEdit.text()
+		full_name = model + " " + storage + "GB [" + grade + " Grade] [" + color +"]"
+		if (model == "" or storage == "" or grade == "" or color == "" or imei == ""):
+			self.addPhone_displayFullName_label.setText("Please select all attributes and enter IMEI")
 		else:
-			imei = self.addPhone_imei_lineEdit.text()
-			self.addPhone_displayIMEI_label.setText(imei)
+			self.display_fullname_and__imei(full_name=full_name,imei=imei)
+			if search_by_imei(imei) == None:
+				newPhone = add_phone(imei=imei, model=model, storage=storage, color=color, grade=grade, product_id=product_id)
+			else:
+				self.addPhone_displayIMEI_label.setText("IMEI Already Exists")
+			#display new phone in table below
+			
+					
+	def display_fullname_and__imei(full_name,imei):
+		self.addPhone_displayFullName_label.setText(full_name)
+		self.addPhone_displayIMEI_label.setText(imei)		
 
 	def display_updated_phones_in_table():
 		pass
+		#1 Search this imei and see if already exists
+
+
 
 	 
 
