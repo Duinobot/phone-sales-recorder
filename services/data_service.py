@@ -10,15 +10,17 @@ import pymongo
 #0 find phone in database
 # take attribute as input and look for the device, if not exist use 
 # #2 add phone to database df
-def add_phone(imei, model, storage, color, grade):
+def add_phone(imei, model, storage, color, grade, product_id):
 	phone = Phone()
 	phone.imei = imei
 	phone.model = model
 	phone.storage = storage
 	phone.color = color
 	phone.grade = grade
+	phone.product_id = product_id
 	generate_full_name(phone)
-	return phone.save()
+	phone.save()
+	return phone
 
 def generate_full_name(phone : Phone) -> str:
 	phone.full_name = phone.model + " " + phone.storage + " [" + phone.grade + " Grade] [" + phone.color +"]"
