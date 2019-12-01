@@ -30,7 +30,8 @@ class Ui_MainWindow(object):
 	def change_id(self):
 		id = self.tableWidget.currentItem()
 		if id != None:
-			print("id:{} added to database".format(id.text()))
+			if id.column()==0:
+				print("id:{} added to database".format(id.text()))
 
 	def confirm_btn_clicked(self):
 		button = QtWidgets.QApplication.focusWidget()
