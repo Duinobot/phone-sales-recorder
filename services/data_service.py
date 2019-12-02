@@ -23,7 +23,7 @@ def add_phone(imei, model, storage, color, grade, product_id):
 	return phone
 
 def generate_full_name(phone : Phone) -> str:
-	phone.full_name = phone.model + " " + phone.storage + " [" + phone.grade + " Grade] [" + phone.color +"]"
+	phone.full_name = phone.model + " " + phone.storage + "GB [" + phone.grade + " Grade] [" + phone.color +"]"
 	return phone.full_name
 
 def display_phone_new_qty():
@@ -35,8 +35,8 @@ def display_phone_new_qty():
 def mark_phone_updated(full_name):
 	Phone.objects(full_name=full_name,change_checked=False).update(change_checked=True,date_modified=datetime.datetime.now)
 
-def search_by_imei(imei) -> Phone:
-	phone = Phone.objects.get(imei__iendswith=imei)
+def search_by_imei(imei):
+	phone = Phone.objects.filter(imei__iendswith=imei)
 	return phone
 
 def add_customer(name="",company="",mobile="",email="") -> Customer:

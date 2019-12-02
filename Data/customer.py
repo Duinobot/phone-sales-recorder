@@ -1,6 +1,5 @@
 import datetime
 from mongoengine import *
-from Data.imei import *
 
 #a list of imei number will be stored in customer instance.
 

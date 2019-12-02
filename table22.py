@@ -32,6 +32,7 @@ class Ui_MainWindow(object):
 		if id != None:
 			if id.column()==0:
 				print("id:{} added to database".format(id.text()))
+				print("cell widgets:{}".format(self.tableWidget.item(id.row(),id.column()+1).text()))
 
 	def confirm_btn_clicked(self):
 		button = QtWidgets.QApplication.focusWidget()
@@ -65,7 +66,7 @@ class Ui_MainWindow(object):
 		QtCore.QMetaObject.connectSlotsByName(MainWindow)
 		self.pushButton.clicked.connect(self.loadData)
 
-		
+
 	def retranslateUi(self, MainWindow):
 		_translate = QtCore.QCoreApplication.translate
 		MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
