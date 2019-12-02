@@ -57,7 +57,7 @@ class InventoryApp(Ui_MainWindow):
 	def display_updated_phones_in_table(self):
 		self.addPhone_newQty_tableWidget.setRowCount(0)
   		#get change_checked is fales
-		name_list = Phone.objects(change_checked=False).distinct(field="full_name")
+		name_list = Phone.objects(Q(change_checked=False) & Q()).distinct(field="full_name")
 		#display all unchecked phone (id,full_name,qty,confirm button) in table
 		#id change
 		self.addPhone_newQty_tableWidget.cellChanged.connect(self.update_phone_id)
