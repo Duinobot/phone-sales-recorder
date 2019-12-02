@@ -27,7 +27,7 @@ def generate_full_name(phone : Phone) -> str:
 	return phone.full_name
 
 def display_phone_new_qty():
-	update_list = Phone.objects.filter(Q(change_checked=False)&Q(customer_id__exists=False)).distinct(field="full_name")
+	update_list = Phone.objects.filter(change_checked=False).distinct(field="full_name")
 	for full_name in update_list:
 		qty = Phone.objects(full_name=full_name).count()
 		print ("{}: {}".format(full_name,qty))
@@ -71,7 +71,7 @@ def print_phone_list(phone_list):
 		print("{}, imei {}".format(phone.full_name,phone.imei))
 
 def display_inventory_summary():
-	invenotry_list = Phone.objects(customer_id__exists=False).distinct(field="full_name")
+    	invenotry_list = Phone.objects(customer_id__exists=False).distinct(field="full_name")
 	for phone in invenotry_list:
 		qty = Phone.objects(full_name=phone).count()
 		print ("{}: {}".format(phone,qty))
