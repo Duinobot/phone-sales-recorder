@@ -25,11 +25,20 @@ class InventoryApp(Ui_MainWindow):
 		self.addPhone_addPhone_pushButton.clicked.connect(self.addPhone_AddButtonClicked)
 		self.display_updated_phones_in_table()
 		#store customer_id for global use
-		customer_id = None
+		self.customer_id = None
 		
 		self.addCustomer_addCustomer_pushCustomer.clicked.connect(self.add_customer_btn_clicked)
 		self.addCustomer_editSearch_pushButton.clicked.connect(self.edit_customer_search_clicked)
 		self.addCustomer_editConfirm_pushButton.clicked.connect(self.edit_customer_confirm_clicked)
+		self.phoneOut_findCustomer_comboBox.activated.connect(self.display_selected_customer)
+
+
+	def display_selected_customer(self):
+		selected_customer = self.customer_list[self.phoneOut_findCustomer_comboBox.currentIndex()]
+		self.phoneOut_displayCustomer_tableWidget.setRowCount(1)
+		self.phoneOut_displayCustomer_tableWidget.setItem(0,1,QtWidgets.QTableWidgetItem(str(selected_customer.name)))
+		self.phoneOut_displayCustomer_tableWidget.setItem(0,0,QtWidgets.QTableWidgetItem(str(selected_customer.company)))
+
 
 	def edit_customer_confirm_clicked(self):
 		try:
@@ -42,6 +51,7 @@ class InventoryApp(Ui_MainWindow):
 		customer.mobile = self.addCustomer_editPhone_lineEdit.text()
 		customer.email = self.addCustomer_editEmail_lineEdit.text()
 		customer.save()
+		self.reset_diplay_customer_combobox()
 
 	def edit_customer_search_clicked(self):
 		company = self.addCustomer_editCompany_lineEdit.text()
@@ -92,6 +102,8 @@ class InventoryApp(Ui_MainWindow):
 			   company=self.addCustomer_addCompany_lineEdit.text(),
 			   mobile=self.addCustomer_addPhone_lineEdit.text(),
 			   email=self.addCustomer_addEmail_lineEdit.text())
+		self.reset_diplay_customer_combobox()
+
 
 	def addPhone_AddButtonClicked(self):
 		model = self.addPhone_model_comboBox.currentText()

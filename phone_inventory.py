@@ -323,11 +323,7 @@ class Ui_MainWindow(object):
 		self.menu_customerHistory_action.setText(_translate("MainWindow", "Customer Purchase History"))
 		self.menu_stockTake_action.setText(_translate("MainWindow", "Stock Take Report"))
 		self.menu_helpYourself_action.setText(_translate("MainWindow", "Yourself"))
-		#set combobox customer name values
-		self.phoneOut_findCustomer_comboBox.addItem("")
-		for customer in Customer.objects:
-			self.phoneOut_findCustomer_comboBox.addItem(customer.company+"/"+customer.name)
-		#set combobox phone attribute values
+
 		self.addPhone_storage_comboBox.addItem("")
 		self.addPhone_storage_comboBox.addItems(get_attribute_list(name="storage"))
 		self.addPhone_color_comboBox.addItem("")
@@ -337,7 +333,22 @@ class Ui_MainWindow(object):
 		self.addPhone_model_comboBox.addItem("")
 		self.addPhone_model_comboBox.addItems(get_attribute_list(name="model"))
 
+		self.reset_diplay_customer_combobox()
 
+	def reset_diplay_customer_combobox(self):
+		#set combobox customer name values
+		self.customer_list = Customer.objects
+		#initiate auto completer for combox
+		self.display_items = []
+		for customer in self.customer_list:
+			dispaly_item = customer.company+"/"+customer.name
+			self.phoneOut_findCustomer_comboBox.addItem(dispaly_item)
+			self.display_items.append(dispaly_item)
+		self.completer = QtWidgets.QCompleter(self.display_items)
+		self.completer.setCaseSensitivity(QtCore.Qt.CaseInsensitive)
+		self.phoneOut_findCustomer_comboBox.setCompleter(self.completer)
+		#set combobox phone attribute values   	
+		
 if __name__ == "__main__":
 	import sys
 	app = QtWidgets.QApplication(sys.argv)
