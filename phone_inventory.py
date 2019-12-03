@@ -43,15 +43,35 @@ class Ui_MainWindow(object):
 		self.phoneOut_assignPhoneToCustomer_pushButton = QtWidgets.QPushButton(self.tab_2)
 		self.phoneOut_assignPhoneToCustomer_pushButton.setGeometry(QtCore.QRect(330, 300, 141, 23))
 		self.phoneOut_assignPhoneToCustomer_pushButton.setObjectName("phoneOut_assignPhoneToCustomer_pushButton")
-		self.phoneOut_displayCustomer_tableView = QtWidgets.QTableView(self.tab_2)
-		self.phoneOut_displayCustomer_tableView.setGeometry(QtCore.QRect(40, 90, 241, 192))
-		self.phoneOut_displayCustomer_tableView.setObjectName("phoneOut_displayCustomer_tableView")
-		self.phoneOut_findIMEI_tableView = QtWidgets.QTableView(self.tab_2)
-		self.phoneOut_findIMEI_tableView.setGeometry(QtCore.QRect(330, 90, 401, 192))
-		self.phoneOut_findIMEI_tableView.setObjectName("phoneOut_findIMEI_tableView")
+		#1change to tablewidget
+		self.phoneOut_displayCustomer_tableWidget = QtWidgets.QTableWidget(self.tab_2)
+		self.phoneOut_displayCustomer_tableWidget.setGeometry(QtCore.QRect(40, 90, 241, 192))
+		self.phoneOut_displayCustomer_tableWidget.setObjectName("phoneOut_displayCustomer_tableWidget")
+		#1change to tablewidget
+		self.phoneOut_displayCustomer_tableWidget.setColumnCount(2)
+		self.phoneOut_displayCustomer_tableWidget.setRowCount(0)
+		item = QtWidgets.QTableWidgetItem()
+		self.phoneOut_displayCustomer_tableWidget.setHorizontalHeaderItem(0, item)
+		item = QtWidgets.QTableWidgetItem()
+		self.phoneOut_displayCustomer_tableWidget.setHorizontalHeaderItem(1, item)
+
+		#2change to tablewidget
+		self.phoneOut_findIMEI_tableWidget = QtWidgets.QTableWidget(self.tab_2)
+		self.phoneOut_findIMEI_tableWidget.setGeometry(QtCore.QRect(330, 90, 401, 192))
+		self.phoneOut_findIMEI_tableWidget.setObjectName("phoneOut_findIMEI_tableWidget")
+		#2change to tablewidget
+		self.phoneOut_findIMEI_tableWidget.setColumnCount(2)
+		self.phoneOut_findIMEI_tableWidget.setRowCount(0)
+		item = QtWidgets.QTableWidgetItem()
+		self.phoneOut_findIMEI_tableWidget.setHorizontalHeaderItem(0, item)
+		item = QtWidgets.QTableWidgetItem()
+		self.phoneOut_findIMEI_tableWidget.setHorizontalHeaderItem(1, item)
+
 		self.phoneOut_addCustomer_pushButton = QtWidgets.QPushButton(self.tab_2)
 		self.phoneOut_addCustomer_pushButton.setGeometry(QtCore.QRect(40, 300, 131, 23))
 		self.phoneOut_addCustomer_pushButton.setObjectName("phoneOut_addCustomer_pushButton")
+		
+
 		self.tabWindow.addTab(self.tab_2, "")
 		self.tab = QtWidgets.QWidget()
 		self.tab.setObjectName("tab")
@@ -269,6 +289,17 @@ class Ui_MainWindow(object):
 		item.setText(_translate("MainWindow", "Total Qty"))
 		item = self.addPhone_newQty_tableWidget.horizontalHeaderItem(3)
 		item.setText(_translate("MainWindow", "Updated on website"))
+		#add header for phoneOut table
+		item = self.phoneOut_displayCustomer_tableWidget.horizontalHeaderItem(0)
+		item.setText(_translate("MainWindow", "Company"))
+		item = self.phoneOut_displayCustomer_tableWidget.horizontalHeaderItem(1)
+		item.setText(_translate("MainWindow", "Name"))
+		#add header for search Imei table
+		item = self.phoneOut_findIMEI_tableWidget.horizontalHeaderItem(0)
+		item.setText(_translate("MainWindow", "IMEI"))
+		item = self.phoneOut_findIMEI_tableWidget.horizontalHeaderItem(1)
+		item.setText(_translate("MainWindow", "Phone"))
+  
 		self.tabWindow.setTabText(self.tabWindow.indexOf(self.tab), _translate("MainWindow", "Add Phone"))
 		self.groupBox_3.setTitle(_translate("MainWindow", "Add Customer"))
 		self.label_12.setText(_translate("MainWindow", "Company"))

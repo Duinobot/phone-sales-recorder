@@ -139,7 +139,7 @@ class InventoryApp(Ui_MainWindow):
 			self.ok_btn = QtWidgets.QPushButton("OK~")
 			self.addPhone_newQty_tableWidget.setCellWidget(row,3,self.ok_btn)
 			self.ok_btn.clicked.connect(self.ok_btn_clicked)
-			#ok_btn			
+			#ok_btn
 		#display confirm buttons
 
 	def update_phone_id(self):
