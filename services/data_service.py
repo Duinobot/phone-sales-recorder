@@ -71,7 +71,7 @@ def print_phone_list(phone_list):
 		print("{}, imei {}".format(phone.full_name,phone.imei))
 
 def display_inventory_summary():
-    	invenotry_list = Phone.objects(customer_id__exists=False).distinct(field="full_name")
+	invenotry_list = Phone.objects(customer_id__exists=False).distinct(field="full_name")
 	for phone in invenotry_list:
 		qty = Phone.objects(full_name=phone).count()
 		print ("{}: {}".format(phone,qty))

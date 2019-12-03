@@ -40,7 +40,6 @@ class Ui_MainWindow(object):
 		#setEditable
 		self.phoneOut_findCustomer_comboBox.setEditable(True)
 		
-		
 		self.phoneOut_assignPhoneToCustomer_pushButton = QtWidgets.QPushButton(self.tab_2)
 		self.phoneOut_assignPhoneToCustomer_pushButton.setGeometry(QtCore.QRect(330, 300, 141, 23))
 		self.phoneOut_assignPhoneToCustomer_pushButton.setObjectName("phoneOut_assignPhoneToCustomer_pushButton")
@@ -65,15 +64,12 @@ class Ui_MainWindow(object):
 		#setEditable
 		self.addPhone_model_comboBox.setEditable(True)
 		
-		
-		
 		self.addPhone_grade_comboBox = QtWidgets.QComboBox(self.groupBox)
 		self.addPhone_grade_comboBox.setGeometry(QtCore.QRect(260, 40, 69, 22))
 		self.addPhone_grade_comboBox.setObjectName("addPhone_grade_comboBox")
 		#setEditable
 		self.addPhone_grade_comboBox.setEditable(True)
 
-		
 		self.label_3 = QtWidgets.QLabel(self.groupBox)
 		self.label_3.setGeometry(QtCore.QRect(20, 20, 47, 13))
 		self.label_3.setObjectName("label_3")
@@ -89,7 +85,6 @@ class Ui_MainWindow(object):
 		#setEditable
 		self.addPhone_color_comboBox.setEditable(True)
 		
-		
 		self.label_5 = QtWidgets.QLabel(self.groupBox)
 		self.label_5.setGeometry(QtCore.QRect(260, 20, 47, 13))
 		self.label_5.setObjectName("label_5")
@@ -101,7 +96,6 @@ class Ui_MainWindow(object):
 		self.addPhone_storage_comboBox.setObjectName("addPhone_storage_comboBox")
 		#setEditable
 		self.addPhone_storage_comboBox.setEditable(True)
-		
 		
 		self.addPhone_imei_lineEdit = QtWidgets.QLineEdit(self.groupBox)
 		self.addPhone_imei_lineEdit.setGeometry(QtCore.QRect(20, 90, 391, 20))
@@ -263,8 +257,8 @@ class Ui_MainWindow(object):
 		self.label_7.setText(_translate("MainWindow", "Product ID(optional)"))
 		self.label_8.setText(_translate("MainWindow", "IMEI"))
 		self.label_9.setText(_translate("MainWindow", "Last Added:"))
-		self.addPhone_displayFullName_label.setText(_translate("MainWindow", "Full_name"))
-		self.addPhone_displayIMEI_label.setText(_translate("MainWindow", "IMEI"))
+		self.addPhone_displayFullName_label.setText(_translate("MainWindow", ""))
+		self.addPhone_displayIMEI_label.setText(_translate("MainWindow", ""))
 		self.addPhone_addPhone_pushButton.setText(_translate("MainWindow", "Add"))
 		self.groupBox_2.setTitle(_translate("MainWindow", "New Qty"))
 		item = self.addPhone_newQty_tableWidget.horizontalHeaderItem(0)
@@ -288,7 +282,7 @@ class Ui_MainWindow(object):
 		self.label_18.setText(_translate("MainWindow", "Phone"))
 		self.label_19.setText(_translate("MainWindow", "Email"))
 		self.addCustomer_editSearch_pushButton.setText(_translate("MainWindow", "Search"))
-		self.addCustomer_editConfirm_pushButton.setText(_translate("MainWindow", "Confirm"))
+		self.addCustomer_editConfirm_pushButton.setText(_translate("MainWindow", "Save"))
 		self.tabWindow.setTabText(self.tabWindow.indexOf(self.tab_3), _translate("MainWindow", "Add Customer"))
 		self.menuFile.setTitle(_translate("MainWindow", "File"))
 		self.menuReport.setTitle(_translate("MainWindow", "Report"))
