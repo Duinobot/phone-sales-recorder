@@ -71,6 +71,9 @@ class Ui_MainWindow(object):
 		self.phoneOut_addCustomer_pushButton.setGeometry(QtCore.QRect(40, 300, 131, 23))
 		self.phoneOut_addCustomer_pushButton.setObjectName("phoneOut_addCustomer_pushButton")
 		
+		self.PhoneOut_checkbox_includesold = QtWidgets.QCheckBox(self.tab_2)
+		self.PhoneOut_checkbox_includesold.setGeometry(QtCore.QRect(380, 30, 121, 17))
+		self.PhoneOut_checkbox_includesold.setObjectName("PhoneOut_checkbox_includesold")
 
 		self.tabWindow.addTab(self.tab_2, "")
 		self.tab = QtWidgets.QWidget()
@@ -268,6 +271,7 @@ class Ui_MainWindow(object):
 		self.pushButton_2.setText(_translate("MainWindow", "Find"))
 		self.phoneOut_assignPhoneToCustomer_pushButton.setText(_translate("MainWindow", "Assign To Customer"))
 		self.phoneOut_addCustomer_pushButton.setText(_translate("MainWindow", "Add New Customer"))
+		self.PhoneOut_checkbox_includesold.setText(_translate("MainWindow", "Include Sold"))
 		self.tabWindow.setTabText(self.tabWindow.indexOf(self.tab_2), _translate("MainWindow", "Phone Out"))
 		self.groupBox.setTitle(_translate("MainWindow", "Add Device"))
 		self.label_3.setText(_translate("MainWindow", "Model"))
@@ -288,7 +292,7 @@ class Ui_MainWindow(object):
 		item = self.addPhone_newQty_tableWidget.horizontalHeaderItem(2)
 		item.setText(_translate("MainWindow", "Total Qty"))
 		item = self.addPhone_newQty_tableWidget.horizontalHeaderItem(3)
-		item.setText(_translate("MainWindow", "Updated on website"))
+		item.setText(_translate("MainWindow", "Update website"))
 		#add header for phoneOut table
 		item = self.phoneOut_displayCustomer_tableWidget.horizontalHeaderItem(0)
 		item.setText(_translate("MainWindow", "Company"))

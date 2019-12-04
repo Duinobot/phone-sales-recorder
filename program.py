@@ -68,16 +68,37 @@ class InventoryApp(Ui_MainWindow):
 
 	def phoneOut_imei_find_display(self):
 		imei = self.phoneOut_findIMEI_lineEdit.text()
-		self.phone_list = list(Phone.objects.filter(Q(imei__iendswith = imei) & Q(customer_id__exists=False)))
+		if self.PhoneOut_checkbox_includesold.checkState() == 0:
+			self.phone_list = list(Phone.objects.filter(Q(imei__iendswith = imei) & Q(customer_id__exists=False)))
+		else:
+			self.phone_list = list(Phone.objects.filter(imei__iendswith = imei))
 		self.display_imei_found_phoneOut()
 
 	def display_imei_found_phoneOut(self):
 		self.phoneOut_findIMEI_tableWidget.setRowCount(0)
-		for phone in self.phone_list:
-			row = self.phone_list.index(phone)
-			self.phoneOut_findIMEI_tableWidget.insertRow(row)
-			self.phoneOut_findIMEI_tableWidget.setItem(row,0,QtWidgets.QTableWidgetItem(str(phone.imei)))
-			self.phoneOut_findIMEI_tableWidget.setItem(row,1,QtWidgets.QTableWidgetItem(str(phone.full_name)))
+		if self.PhoneOut_checkbox_includesold.checkState() == 0:
+			for phone in self.phone_list:
+				row = self.phone_list.index(phone)
+				self.phoneOut_findIMEI_tableWidget.insertRow(row)
+				self.phoneOut_findIMEI_tableWidget.setItem(row,0,QtWidgets.QTableWidgetItem(str(phone.imei)))
+				self.phoneOut_findIMEI_tableWidget.setItem(row,1,QtWidgets.QTableWidgetItem(str(phone.full_name)))
+		else:
+			for phone in self.phone_list:
+				row = self.phone_list.index(phone)
+				self.phoneOut_findIMEI_tableWidget.insertRow(row)
+				self.phoneOut_findIMEI_tableWidget.setItem(row,0,QtWidgets.QTableWidgetItem(str(phone.imei)))
+				self.phoneOut_findIMEI_tableWidget.setItem(row,1,QtWidgets.QTableWidgetItem(str(phone.full_name)))
+				try:
+					customer = Customer.objects.get(id=phone.customer_id)
+					
+					self.phoneOut_findIMEI_tableWidget.setColumnCount(4)
+					self.phoneOut_findIMEI_tableWidget.setItem(row,3,QtWidgets.QTableWidgetItem(str(phone.date_modified)))
+					self.phoneOut_findIMEI_tableWidget.setItem(row,2,QtWidgets.QTableWidgetItem(str(customer.company)))
+					#set header items
+				except:
+					pass
+				
+
 
 
 	def go_to_add_customter_tab(self):
