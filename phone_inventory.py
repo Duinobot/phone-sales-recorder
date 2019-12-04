@@ -332,7 +332,7 @@ class Ui_MainWindow(object):
 		self.addPhone_grade_comboBox.addItems(get_attribute_list(name="grade"))
 		self.addPhone_model_comboBox.addItem("")
 		self.addPhone_model_comboBox.addItems(get_attribute_list(name="model"))
-
+  
 		self.reset_diplay_customer_combobox()
 
 	def reset_diplay_customer_combobox(self):

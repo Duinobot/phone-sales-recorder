@@ -3,6 +3,7 @@ from services.data_service import *
 import sys
 from mongoengine import *
 from Data.attribute import *
+import datetime
 
 #connect database with pymongo
 client = pymongo.MongoClient('localhost', 27017)
@@ -24,13 +25,63 @@ class InventoryApp(Ui_MainWindow):
 		#self.addPhone_model_comboBox.
 		self.addPhone_addPhone_pushButton.clicked.connect(self.addPhone_AddButtonClicked)
 		self.display_updated_phones_in_table()
-		#store customer_id for global use
+		#store customer_id for addCustomer Tab use
 		self.customer_id = None
-		
+		#customer selected on PhoneOut customer
+		self.customer_selected = None
+		#phone list on PhoneOut Imei Table
+		self.phone_list = None
+
 		self.addCustomer_addCustomer_pushCustomer.clicked.connect(self.add_customer_btn_clicked)
 		self.addCustomer_editSearch_pushButton.clicked.connect(self.edit_customer_search_clicked)
 		self.addCustomer_editConfirm_pushButton.clicked.connect(self.edit_customer_confirm_clicked)
 		self.phoneOut_findCustomer_comboBox.activated.connect(self.display_selected_customer)
+		self.phoneOut_addCustomer_pushButton.clicked.connect(self.go_to_add_customter_tab)
+		self.phoneOut_findIMEI_lineEdit.returnPressed.connect(self.phoneOut_imei_find_display)
+		self.phoneOut_findIMEI_pushButton.clicked.connect(self.phoneOut_imei_find_display)
+		self.phoneOut_assignPhoneToCustomer_pushButton.clicked.connect(self.assign_phone_to_customer)
+
+
+	def assign_phone_to_customer(self):
+		try:
+			customer_selected = self.customer_list[self.phoneOut_findCustomer_comboBox.currentIndex()]
+		except:
+			print("customer name not selected")
+			return
+		try:
+			imei_selected_rows = sorted(set(index.row() for index in self.phoneOut_findIMEI_tableWidget.selectedIndexes()))
+		except:
+			print("imei not selected")
+			return
+		for row in imei_selected_rows:
+			#assign add customer_id to this phone
+			try:
+	   			phone_selected = self.phone_list[row]
+			except:
+				pass
+			phone_selected.customer_id = customer_selected.id
+			phone_selected.date_out = datetime.datetime.now()
+			phone_selected.date_modified = datetime.datetime.now()
+			phone_selected.save()
+			self.phoneOut_imei_find_display()
+
+
+	def phoneOut_imei_find_display(self):
+		imei = self.phoneOut_findIMEI_lineEdit.text()
+		self.phone_list = list(Phone.objects.filter(Q(imei__iendswith = imei) & Q(customer_id__exists=False)))
+		self.display_imei_found_phoneOut()
+
+	def display_imei_found_phoneOut(self):
+		self.phoneOut_findIMEI_tableWidget.setRowCount(0)
+		for phone in self.phone_list:
+			row = self.phone_list.index(phone)
+			self.phoneOut_findIMEI_tableWidget.insertRow(row)
+			self.phoneOut_findIMEI_tableWidget.setItem(row,0,QtWidgets.QTableWidgetItem(str(phone.imei)))
+			self.phoneOut_findIMEI_tableWidget.setItem(row,1,QtWidgets.QTableWidgetItem(str(phone.full_name)))
+
+
+	def go_to_add_customter_tab(self):
+		self.tabWindow.setCurrentWidget(self.tab_3)
 
 
 	def display_selected_customer(self):
@@ -88,7 +139,7 @@ class InventoryApp(Ui_MainWindow):
 			self.addCustomer_editPhone_lineEdit.setText("")
 			self.addCustomer_editEmail_lineEdit.setText("")
 			print("mkay")
-		
+
 	def display_customer_info_for_edit(self,customer: Customer):
 		print(customer.company)
 		self.addCustomer_editCompany_lineEdit.setText(customer.company)
@@ -160,7 +211,7 @@ class InventoryApp(Ui_MainWindow):
 			if id.column()==0:
 				full_name = self.addPhone_newQty_tableWidget.item(id.row(),1).text()
 				Phone.objects(full_name=full_name).update(product_id=id.text())
-	
+
 	def ok_btn_clicked(self):
 		ok_btn = QtWidgets.QApplication.focusWidget()
 		index = self.addPhone_newQty_tableWidget.indexAt(ok_btn.pos())
