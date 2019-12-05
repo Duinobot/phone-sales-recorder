@@ -17,3 +17,4 @@ class Phone(Document):
 	change_checked = BooleanField(required=True, default = False)
 	customer_id = ObjectIdField()
 	
+	input_confirmed = BooleanField(required=True, default = False)

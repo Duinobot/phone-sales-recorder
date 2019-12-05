@@ -12,7 +12,7 @@ db = client.learning_mongo
 connect('learning_mongo')
 
 try:
-	add_phone(imei="657657",model="iPhone 7",storage="128GB",color="Silver",grade="A")
+	add_phone(imei="test",model="test",storage="test",color="test",grade="test")
 except:
 	pass
 
@@ -42,9 +42,11 @@ class InventoryApp(Ui_MainWindow):
 		self.phoneOut_assignPhoneToCustomer_pushButton.clicked.connect(self.assign_phone_to_customer)
 
 
+ 
+
 	def assign_phone_to_customer(self):
 		try:
-			customer_selected = self.customer_list[self.phoneOut_findCustomer_comboBox.currentIndex()]
+			self.customer_selected == True
 		except:
 			print("customer name not selected")
 			return
@@ -59,7 +61,7 @@ class InventoryApp(Ui_MainWindow):
 	   			phone_selected = self.phone_list[row]
 			except:
 				pass
-			phone_selected.customer_id = customer_selected.id
+			phone_selected.customer_id = self.customer_selected.id
 			phone_selected.date_out = datetime.datetime.now()
 			phone_selected.date_modified = datetime.datetime.now()
 			phone_selected.save()
@@ -106,10 +108,14 @@ class InventoryApp(Ui_MainWindow):
 
 
 	def display_selected_customer(self):
-		selected_customer = self.customer_list[self.phoneOut_findCustomer_comboBox.currentIndex()]
+		try:
+	  		currentIndex = self.display_items.index(self.phoneOut_findCustomer_comboBox.currentText())
+		except:
+			return
+		self.customer_selected = self.customer_list[currentIndex]
 		self.phoneOut_displayCustomer_tableWidget.setRowCount(1)
-		self.phoneOut_displayCustomer_tableWidget.setItem(0,1,QtWidgets.QTableWidgetItem(str(selected_customer.name)))
-		self.phoneOut_displayCustomer_tableWidget.setItem(0,0,QtWidgets.QTableWidgetItem(str(selected_customer.company)))
+		self.phoneOut_displayCustomer_tableWidget.setItem(0,1,QtWidgets.QTableWidgetItem(str(self.customer_selected.name)))
+		self.phoneOut_displayCustomer_tableWidget.setItem(0,0,QtWidgets.QTableWidgetItem(str(self.customer_selected.company)))
 
 
 	def edit_customer_confirm_clicked(self):
@@ -188,7 +194,7 @@ class InventoryApp(Ui_MainWindow):
 			try:
 	   			product_id = Phone.objects.filter(Q(full_name=full_name)&Q(product_id__exists=True)).first().product_id
 			except:
-				pass
+				product_id = ""
 		else:
 			product_id = self.addPhone_productID_lineEdit.text()
 

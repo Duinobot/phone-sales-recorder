@@ -271,7 +271,7 @@ class Ui_MainWindow(object):
 		self.pushButton_2.setText(_translate("MainWindow", "Find"))
 		self.phoneOut_assignPhoneToCustomer_pushButton.setText(_translate("MainWindow", "Assign To Customer"))
 		self.phoneOut_addCustomer_pushButton.setText(_translate("MainWindow", "Add New Customer"))
-		self.PhoneOut_checkbox_includesold.setText(_translate("MainWindow", "Include Sold"))
+		self.PhoneOut_checkbox_includesold.setText(_translate("MainWindow", "setEditable"))
 		self.tabWindow.setTabText(self.tabWindow.indexOf(self.tab_2), _translate("MainWindow", "Phone Out"))
 		self.groupBox.setTitle(_translate("MainWindow", "Add Device"))
 		self.label_3.setText(_translate("MainWindow", "Model"))
@@ -340,7 +340,7 @@ class Ui_MainWindow(object):
 		self.reset_diplay_customer_combobox()
 
 	def reset_diplay_customer_combobox(self):
-		#set combobox customer name values
+    		#set combobox customer name values
 		self.customer_list = Customer.objects
 		#initiate auto completer for combox
 		self.display_items = []
@@ -352,7 +352,7 @@ class Ui_MainWindow(object):
 		self.completer.setCaseSensitivity(QtCore.Qt.CaseInsensitive)
 		self.phoneOut_findCustomer_comboBox.setCompleter(self.completer)
 		#set combobox phone attribute values   	
-		
+
 if __name__ == "__main__":
 	import sys
 	app = QtWidgets.QApplication(sys.argv)
