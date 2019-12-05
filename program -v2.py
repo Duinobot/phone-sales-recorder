@@ -1,20 +1,8 @@
 from final import *
 from services.data_service import *
 import sys
-from mongoengine import *
 from Data.attribute import *
 import datetime
-
-#connect database with pymongo
-client = pymongo.MongoClient('localhost', 27017)
-db = client.learning_mongo
-#connect database with mongoengine
-connect('learning_mongo')
-
-try:
-    add_phone(imei="test",model="test",storage="test",color="test",grade="test")
-except:
-    pass
 
 class InventoryApp(Ui_MainWindow):
     def __init__(self, window):

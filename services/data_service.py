@@ -5,7 +5,7 @@ from Data.customer import Customer
 from Data.phone import Phone
 from Data.attribute import *
 from mongoengine.queryset.visitor import Q
-import pymongo
+from connect_mongo import *
 
 #0 find phone in database
 # take attribute as input and look for the device, if not exist use 
