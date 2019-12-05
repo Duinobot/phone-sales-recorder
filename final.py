@@ -278,7 +278,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Phone Inventory Management System"))
         self.groupBox_5.setTitle(_translate("MainWindow", "Assign To"))
         self.phoneOut_assignPhoneToCustomer_pushButton.setText(_translate("MainWindow", "Assign To Customer"))
         self.phoneOut_addCustomer_pushButton.setText(_translate("MainWindow", "Add New Customer"))
