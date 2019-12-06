@@ -91,4 +91,8 @@ def add_attribute(name="",value=""):
 			print("{} \"{}\" already exists".format(name,value))
 					  
 def get_attribute_list(name):
-	return Attributes.objects.get(name=name).value
+	try:
+		return Attributes.objects.get(name=name).value
+	except:
+		pass
+	

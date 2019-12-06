@@ -30,7 +30,10 @@ class InventoryApp(Ui_MainWindow):
         self.phoneOut_findIMEI_pushButton.clicked.connect(self.phoneOut_imei_find_display)
         self.phoneOut_assignPhoneToCustomer_pushButton.clicked.connect(self.assign_phone_to_customer)
         #initiate phone attribute box
-        self.initiate_phone_attribute_box()
+        try:
+            self.initiate_phone_attribute_box()
+        except:
+            pass
         self.display_new_phones_in_newPhone_table()
         self.addPhone_pushButton_confirmChange.clicked.connect(self.confirmChange_button_clicked)
 
@@ -43,12 +46,12 @@ class InventoryApp(Ui_MainWindow):
     
     def initiate_phone_attribute_box(self):
         self.addPhone_storage_comboBox.addItem("")
-        self.addPhone_storage_comboBox.addItems(get_attribute_list(name="storage"))
         self.addPhone_color_comboBox.addItem("")
-        self.addPhone_color_comboBox.addItems(get_attribute_list(name="color"))
         self.addPhone_grade_comboBox.addItem("")
-        self.addPhone_grade_comboBox.addItems(get_attribute_list(name="grade"))
         self.addPhone_model_comboBox.addItem("")
+        self.addPhone_storage_comboBox.addItems(get_attribute_list(name="storage"))
+        self.addPhone_color_comboBox.addItems(get_attribute_list(name="color"))
+        self.addPhone_grade_comboBox.addItems(get_attribute_list(name="grade"))
         self.addPhone_model_comboBox.addItems(get_attribute_list(name="model"))
  
     def reset_diplay_customer_combobox(self):
@@ -186,7 +189,7 @@ class InventoryApp(Ui_MainWindow):
             self.addCustomer_editEmail_lineEdit.setText("")
             print("mkay")
 
-    def display_customer_info_for_edit(self,customer: Customer):
+    def display_customer_info_for_edit(self,customerc):
         print(customer.company)
         self.addCustomer_editCompany_lineEdit.setText(customer.company)
         self.addCustomer_editName_lineEdit.setText(customer.name)
