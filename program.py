@@ -42,8 +42,7 @@ class InventoryApp(Ui_MainWindow):
             phone.input_confirmed = True
             phone.save()
         self.display_new_phones_in_newPhone_table()
-            
-    
+
     def initiate_phone_attribute_box(self):
         self.addPhone_storage_comboBox.addItem("")
         self.addPhone_color_comboBox.addItem("")
@@ -68,20 +67,18 @@ class InventoryApp(Ui_MainWindow):
         self.phoneOut_findCustomer_comboBox.setCompleter(self.completer)
 
     def assign_phone_to_customer(self):
-        try:
-            self.customer_selected == True
-        except:
-            print("customer name not selected")
+        if self.customer_selected is None:
+            QtWidgets.QMessageBox.critical(self.tab_2,"Error","Please select customer")
             return
         try:
             imei_selected_rows = sorted(set(index.row() for index in self.phoneOut_findIMEI_tableWidget.selectedIndexes()))
         except:
-            print("imei not selected")
+            QtWidgets.QMessageBox.critical(self.tab_2,"Error","imei not selected")
             return
         for row in imei_selected_rows:
             #assign add customer_id to this phone
             try:
-                   phone_selected = self.phone_list[row]
+                phone_selected = self.phone_list[row]
             except:
                 pass
             phone_selected.customer_id = self.customer_selected.id
@@ -89,7 +86,6 @@ class InventoryApp(Ui_MainWindow):
             phone_selected.date_modified = datetime.datetime.now()
             phone_selected.save()
             self.phoneOut_imei_find_display()
-
 
     def phoneOut_imei_find_display(self):
         imei = self.phoneOut_findIMEI_lineEdit.text()
@@ -122,11 +118,9 @@ class InventoryApp(Ui_MainWindow):
                     #set header items
                 except:
                     pass
-                
 
     def go_to_add_customter_tab(self):
         self.tabWindow.setCurrentWidget(self.tab_3)
-
 
     def display_selected_customer(self):
         try:
@@ -138,20 +132,19 @@ class InventoryApp(Ui_MainWindow):
         self.phoneOut_displayCustomer_tableWidget.setItem(0,1,QtWidgets.QTableWidgetItem(str(self.customer_selected.name)))
         self.phoneOut_displayCustomer_tableWidget.setItem(0,0,QtWidgets.QTableWidgetItem(str(self.customer_selected.company)))
 
-
     def edit_customer_confirm_clicked(self):
         try:
               customer = Customer.objects.get(id=self.customer_id)
         except:
-            print("no such customer")
+            QtWidgets.QMessageBox.critical(self.tab_3,"Error","no such customer")
             return
         customer.company = self.addCustomer_editCompany_lineEdit.text()
         customer.name = self.addCustomer_editName_lineEdit.text()
         customer.mobile = self.addCustomer_editPhone_lineEdit.text()
         customer.email = self.addCustomer_editEmail_lineEdit.text()
         customer.save()
+        QtWidgets.QMessageBox.about(self.tab_3,"Success","Customer information updated")
         self.reset_diplay_customer_combobox()
-
 
     def edit_customer_search_clicked(self):
         company = self.addCustomer_editCompany_lineEdit.text()
@@ -187,10 +180,9 @@ class InventoryApp(Ui_MainWindow):
             self.addCustomer_editName_lineEdit.setText("")
             self.addCustomer_editPhone_lineEdit.setText("")
             self.addCustomer_editEmail_lineEdit.setText("")
-            print("mkay")
 
-    def display_customer_info_for_edit(self,customerc):
-        print(customer.company)
+
+    def display_customer_info_for_edit(self,customer):
         self.addCustomer_editCompany_lineEdit.setText(customer.company)
         self.addCustomer_editName_lineEdit.setText(customer.name)
         self.addCustomer_editPhone_lineEdit.setText(customer.mobile)
@@ -198,12 +190,16 @@ class InventoryApp(Ui_MainWindow):
         self.customer_id = customer.id
 
     def add_customer_btn_clicked(self):
-        add_customer(name=self.addCustomer_addName_lineEdit.text(),
-               company=self.addCustomer_addCompany_lineEdit.text(),
-               mobile=self.addCustomer_addPhone_lineEdit.text(),
-               email=self.addCustomer_addEmail_lineEdit.text())
+        name=self.addCustomer_addName_lineEdit.text()
+        company=self.addCustomer_addCompany_lineEdit.text()
+        mobile=self.addCustomer_addPhone_lineEdit.text()
+        email=self.addCustomer_addEmail_lineEdit.text()
+        if Customer.objects(company=company):
+            QtWidgets.QMessageBox.critical(self.tab_3, "Duplicate", "Company Already Exits")
+        else:
+            add_customer(name=name,company=company,mobile=mobile,email=email)
+            QtWidgets.QMessageBox.about(self.tab_3, "Success", "Cutomer Added")
         self.reset_diplay_customer_combobox()
-
 
     def addPhone_AddButtonClicked(self):
         model = self.addPhone_model_comboBox.currentText()
@@ -232,7 +228,7 @@ class InventoryApp(Ui_MainWindow):
                 self.display_updated_phones_in_summary_table()
                 
             #display new phone in table below
-            
+
     def display_new_phones_in_newPhone_table(self):
         self.addPhone_tableWidget_displayAddedPhones.setRowCount(0)
         self.new_phone_list = list(Phone.objects(input_confirmed=False).order_by("-date_modified"))
@@ -250,7 +246,6 @@ class InventoryApp(Ui_MainWindow):
         delete_btn = QtWidgets.QApplication.focusWidget()
         index = self.addPhone_tableWidget_displayAddedPhones.indexAt(delete_btn.pos())
         if index.isValid():
-            print(index.row(),index.column())
             #set change_check status to True
             phone_id = self.new_phone_list[index.row()].id
             Phone.objects(id=phone_id).delete()
@@ -290,7 +285,6 @@ class InventoryApp(Ui_MainWindow):
         ok_btn = QtWidgets.QApplication.focusWidget()
         index = self.addPhone_newQty_tableWidget.indexAt(ok_btn.pos())
         if index.isValid():
-            print(index.row(),index.column())
             #set change_check status to True
             full_name = self.addPhone_newQty_tableWidget.item(index.row(),1).text()
             Phone.objects(full_name=full_name).update(change_checked=True)
