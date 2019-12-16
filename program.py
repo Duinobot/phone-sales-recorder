@@ -84,8 +84,12 @@ class InventoryApp(Ui_MainWindow):
             phone_selected.customer_id = self.customer_selected.id
             phone_selected.date_out = datetime.datetime.now()
             phone_selected.date_modified = datetime.datetime.now()
+            phone_selected.input_confirmed = True
+            phone_selected.change_checked = True
             phone_selected.save()
             self.phoneOut_imei_find_display()
+            self.display_updated_phones_in_summary_table()
+            self.display_new_phones_in_newPhone_table()
 
     def phoneOut_imei_find_display(self):
         imei = self.phoneOut_findIMEI_lineEdit.text()
@@ -267,7 +271,7 @@ class InventoryApp(Ui_MainWindow):
             self.addPhone_newQty_tableWidget.insertRow(row)
             self.addPhone_newQty_tableWidget.setItem(row,0,QtWidgets.QTableWidgetItem(str(Phone.objects(full_name=name)[0].product_id)))
             self.addPhone_newQty_tableWidget.setItem(row,1,QtWidgets.QTableWidgetItem(str(name)))
-            self.addPhone_newQty_tableWidget.setItem(row,2,QtWidgets.QTableWidgetItem(str(Phone.objects(full_name=name).count())))
+            self.addPhone_newQty_tableWidget.setItem(row,2,QtWidgets.QTableWidgetItem(str(Phone.objects(Q(full_name=name) & Q(customer_id__exists = False)).count())))
             self.ok_btn = QtWidgets.QPushButton("OK~")
             self.addPhone_newQty_tableWidget.setCellWidget(row,3,self.ok_btn)
             self.ok_btn.clicked.connect(self.ok_btn_clicked)
