@@ -272,7 +272,7 @@ class InventoryApp(Ui_MainWindow):
             self.addPhone_newQty_tableWidget.insertRow(row)
             self.addPhone_newQty_tableWidget.setItem(row,0,QtWidgets.QTableWidgetItem(str(Phone.objects(full_name=name)[0].product_id)))
             self.addPhone_newQty_tableWidget.setItem(row,1,QtWidgets.QTableWidgetItem(str(name)))
-            self.addPhone_newQty_tableWidget.setItem(row,2,QtWidgets.QTableWidgetItem(str(Phone.objects(Q(full_name=name)&Q(input_confirmed=False)).count())))
+            self.addPhone_newQty_tableWidget.setItem(row,2,QtWidgets.QTableWidgetItem(str(Phone.objects(Q(full_name=name)&Q(change_checked=False)).count())))
             self.addPhone_newQty_tableWidget.setItem(row,3,QtWidgets.QTableWidgetItem(str(Phone.objects(Q(full_name=name) & Q(customer_id__exists = False)).count())))
             self.ok_btn = QtWidgets.QPushButton("OK~")
             self.addPhone_newQty_tableWidget.setCellWidget(row,4,self.ok_btn)
