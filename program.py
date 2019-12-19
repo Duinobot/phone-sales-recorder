@@ -254,6 +254,7 @@ class InventoryApp(Ui_MainWindow):
             phone_id = self.new_phone_list[index.row()].id
             Phone.objects(id=phone_id).delete()
             self.display_new_phones_in_newPhone_table()
+            self.display_updated_phones_in_summary_table()
 
     def display_fullname_and_imei(self,full_name,imei):
         self.addPhone_displayFullName_label.setText(full_name)
@@ -271,9 +272,10 @@ class InventoryApp(Ui_MainWindow):
             self.addPhone_newQty_tableWidget.insertRow(row)
             self.addPhone_newQty_tableWidget.setItem(row,0,QtWidgets.QTableWidgetItem(str(Phone.objects(full_name=name)[0].product_id)))
             self.addPhone_newQty_tableWidget.setItem(row,1,QtWidgets.QTableWidgetItem(str(name)))
-            self.addPhone_newQty_tableWidget.setItem(row,2,QtWidgets.QTableWidgetItem(str(Phone.objects(Q(full_name=name) & Q(customer_id__exists = False)).count())))
+            self.addPhone_newQty_tableWidget.setItem(row,2,QtWidgets.QTableWidgetItem(str(Phone.objects(Q(full_name=name)&Q(input_confirmed=False)).count())))
+            self.addPhone_newQty_tableWidget.setItem(row,3,QtWidgets.QTableWidgetItem(str(Phone.objects(Q(full_name=name) & Q(customer_id__exists = False)).count())))
             self.ok_btn = QtWidgets.QPushButton("OK~")
-            self.addPhone_newQty_tableWidget.setCellWidget(row,3,self.ok_btn)
+            self.addPhone_newQty_tableWidget.setCellWidget(row,4,self.ok_btn)
             self.ok_btn.clicked.connect(self.ok_btn_clicked)
             #ok_btn
         #display confirm buttons

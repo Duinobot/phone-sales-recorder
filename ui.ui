@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
@@ -529,12 +529,17 @@
        </column>
        <column>
         <property name="text">
+         <string>Just added</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
          <string>Total Qty</string>
         </property>
        </column>
        <column>
         <property name="text">
-         <string>Updated on website</string>
+         <string>Update Website</string>
         </property>
        </column>
       </widget>
