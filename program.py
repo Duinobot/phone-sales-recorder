@@ -57,7 +57,8 @@ class InventoryApp(Ui_MainWindow):
                 #set combobox customer name values
         self.customer_list = Customer.objects
         #initiate auto completer for combox
-        self.display_items = [] 
+        self.display_items = []
+        self.phoneOut_findCustomer_comboBox.clear()
         for customer in self.customer_list:
             dispaly_item = customer.company+"/"+customer.name
             self.phoneOut_findCustomer_comboBox.addItem(dispaly_item)
